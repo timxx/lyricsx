@@ -26,3 +26,14 @@
 *.exe
 *.out
 *.app
+
+# QtCreator project
+CMakeLists.txt.user
+*.cbp
+
+# Qt
+*.moc
+*.qm
+
+# vim backup
+*.swp

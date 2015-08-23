@@ -1,0 +1,26 @@
+#ifndef __LRCX_CONFIG_H__
+#define __LRCX_CONFIG_H__
+
+#include <map>
+#include <vector>
+#include <string>
+#include <memory>
+
+#define VERSION "@version@"
+
+#ifndef LRCX_NS
+#  define LRCX_NS lrcxns
+#  define LRCX_BEGIN_NS namespace LRCX_NS {
+#  define LRCX_END_NS }
+#  define LRCX_USE_NS using namespace LRCX_NS;
+#endif
+
+namespace LRCX_NS {}
+LRCX_USE_NS
+
+#ifndef LRCX_EXPORT
+#  define LRCX_EXPORT __attribute__((visibility("default")))
+#  define LRCX_IMPORT __attribute__((visibility("default")))
+#endif
+
+#endif // __LRCX_CONFIG_H__
