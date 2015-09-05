@@ -1,0 +1,20 @@
+add_executable(lyricx
+	icons.qrc
+	application.cpp
+	application.h
+	lrceditor.cpp
+	lrceditor.h
+	main.cpp
+	mainwindow.cpp
+	mainwindow.h
+	mainwindow.ui
+	playerwidget.cpp
+	playerwidget.h
+	playerwidget.ui
+	)
+
+target_link_libraries(lyricx
+	lrc
+	Qt5::Core
+	Qt5::Widgets
+	)

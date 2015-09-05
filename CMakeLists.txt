@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
 project(lyricsx)
 
 set(version 1.0.0)
@@ -20,7 +20,11 @@ add_custom_target(uninstall
 	COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
@@ -32,5 +36,5 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 add_subdirectory(src)
 
 if (LRCX_ENABLE_TESTS)
-    add_subdirectory(tests)
+	add_subdirectory(tests)
 endif()

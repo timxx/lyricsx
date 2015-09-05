@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/insert-mark.png</file>
+        <file>icons/remove-mark.png</file>
+        <file>icons/lrcx.png</file>
+        <file>icons/select-music.png</file>
+        <file>icons/apply-music-info.png</file>
+    </qresource>
+</RCC>
