@@ -4,6 +4,7 @@ endif()
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
+find_package(Qt5Multimedia REQUIRED)
 
 if (LRCX_ENABLE_TESTS)
 	find_package(Qt5Test REQUIRED)
