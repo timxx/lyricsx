@@ -8,6 +8,9 @@ add_executable(lyricx
 	mainwindow.cpp
 	mainwindow.h
 	mainwindow.ui
+	musicselector.cpp
+	musicselector.h
+	musicselector.ui
 	playerwidget.cpp
 	playerwidget.h
 	playerwidget.ui
@@ -15,6 +18,7 @@ add_executable(lyricx
 
 target_link_libraries(lyricx
 	lrc
+	player
 	Qt5::Core
 	Qt5::Widgets
 	)

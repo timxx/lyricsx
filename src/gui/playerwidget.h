@@ -3,6 +3,7 @@
 
 #include "config.h"
 
+#include <player/player.h>
 #include <QDockWidget>
 
 namespace Ui {
@@ -21,10 +22,15 @@ public:
 private Q_SLOTS:
 	void onBtnOpen_Clicked();
 	void onBtnPlayPause_Clicked();
-	void onSliderDuration_Changed(int value);
+	void onSliderDuration_Changed();
+
+	void onPlayerStateChanged(Player::State state);
+	void onPlayerDurationChanged(qint64 duration);
+	void onPlayerPositionChanged(qint64 pos);
 
 private:
 	std::shared_ptr<Ui::PlayerWidget> m_ui;
+	std::unique_ptr<Player> m_player;
 };
 
 LRCX_END_NS
