@@ -70,6 +70,10 @@ void PlayerWidget::onBtnOpen_Clicked()
 	if (m_ui->le_Editor->text().trimmed().isEmpty())
 		m_ui->le_Editor->setText(tr("LyricsX"));
 
+	QString strTitle = player->metaData(Player::Artist).toString();
+	strTitle += " - " + player->metaData(Player::Title).toString();
+	setWindowTitle(strTitle);
+
 	m_ui->btn_PlayPause->setEnabled(true);
 	m_ui->slider_Duration->setEnabled(true);
 
