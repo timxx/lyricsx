@@ -29,8 +29,22 @@ private:
 	void moveToCenter();
 
 private Q_SLOTS:
-	void onAction_Quit();
+	// File menu
+	void onAction_Open();
 	void onAction_Save();
+	void onAction_Saveas();
+	void onAction_Quit();
+
+	// Edit menu
+	void onAction_InsertMark();
+	void onAction_DeleteMark();
+	void onAction_RemoveAllMarks();
+	void onAction_AddMusicInfo();
+
+	// Settings menu
+	void onAction_Preferences();
+
+	// LrcEditor
 
 private:
 	std::shared_ptr<Ui::MainWindow> m_ui;

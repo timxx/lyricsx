@@ -41,6 +41,8 @@ const QString& Application::asToString(AppSettings as) const
 	{
 		{ AS_WindowPostion,      "WindowPos" },
 		{ AS_WindowMaximized,    "WindowMax" },
+		{ AS_LrcLastDir,         "LrcLastDir" },
+		{ AS_MusicLastDir,       "MusicLastDir" },
 	};
 
 	return s_map[as];

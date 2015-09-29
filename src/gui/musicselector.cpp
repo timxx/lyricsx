@@ -1,5 +1,7 @@
 #include "musicselector.h"
 #include "ui_musicselector.h"
+#include "application.h"
+
 #include <player/player.h>
 #include <player/playerfactory.h>
 
@@ -74,14 +76,16 @@ void MusicSelector::onRB_Mpris_Clicked(bool checked)
 void MusicSelector::onBtn_Open_Clicked(bool checked)
 {
 	const QString filters = tr("All files (*);;MP3 files (*.mp3)");
+	QString dir = xApp->settings(Application::AS_MusicLastDir).toString();
 	QString strFile = QFileDialog::getOpenFileName(this,
 												   tr("Open File"),
-												   QString(),
+												   dir,
 												   filters);
 
 	if (!strFile.isEmpty())
 	{
 		m_ui->le_File->setText(strFile);
+		xApp->setSetting(Application::AS_MusicLastDir, strFile);
 	}
 }
 

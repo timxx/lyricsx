@@ -19,6 +19,13 @@ public:
 	PlayerWidget(QWidget *parent = 0);
 	~PlayerWidget();
 
+	QString getTitle() const;
+	QString getArtist() const;
+	QString getAlbum() const;
+	QString getEditor() const;
+
+	qint64 getCurrentPosition() const;
+
 private Q_SLOTS:
 	void onBtnOpen_Clicked();
 	void onBtnPlayPause_Clicked();

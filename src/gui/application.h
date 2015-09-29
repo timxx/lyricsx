@@ -17,6 +17,8 @@ public:
 	{
 		AS_WindowPostion,
 		AS_WindowMaximized,
+		AS_LrcLastDir,
+		AS_MusicLastDir,
 	};
 
 public:

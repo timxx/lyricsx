@@ -26,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>541</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -55,6 +55,7 @@
     <addaction name="separator"/>
     <addaction name="action_Insert_mark"/>
     <addaction name="action_Delete_mark"/>
+    <addaction name="action_Remove_all_marks"/>
     <addaction name="separator"/>
     <addaction name="action_Add_music_info"/>
    </widget>
@@ -174,6 +175,11 @@
    </property>
    <property name="text">
     <string>Add music info</string>
+   </property>
+  </action>
+  <action name="action_Remove_all_marks">
+   <property name="text">
+    <string>Remove all marks</string>
    </property>
   </action>
  </widget>

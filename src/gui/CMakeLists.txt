@@ -4,6 +4,8 @@ add_executable(lyricx
 	application.h
 	lrceditor.cpp
 	lrceditor.h
+	lrchighlighter.cpp
+	lrchighlighter.h
 	main.cpp
 	mainwindow.cpp
 	mainwindow.h

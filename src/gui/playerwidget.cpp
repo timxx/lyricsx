@@ -31,6 +31,33 @@ PlayerWidget::~PlayerWidget()
 
 }
 
+QString PlayerWidget::getTitle() const
+{
+	return m_ui->le_Title->text().trimmed();
+}
+
+QString PlayerWidget::getArtist() const
+{
+	return m_ui->le_Artist->text().trimmed();
+}
+
+QString PlayerWidget::getAlbum() const
+{
+	return m_ui->le_Album->text().trimmed();
+}
+
+QString PlayerWidget::getEditor() const
+{
+	return m_ui->le_Editor->text().trimmed();
+}
+
+qint64 PlayerWidget::getCurrentPosition() const
+{
+	if (m_player)
+		return m_player->position();
+	return 0;
+}
+
 void PlayerWidget::onBtnOpen_Clicked()
 {
 	std::unique_ptr<Player> player(MusicSelector::select());
