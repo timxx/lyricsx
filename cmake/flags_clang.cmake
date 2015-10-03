@@ -7,3 +7,8 @@ if (LRCX_ENABLE_ASAN)
 	set(LRCX_COMPILER_FLAGS "-fsanitize=address -fno-omit-frame-pointer ${LRCX_COMPILER_FLAGS}")
 	set(LRCX_LINKER_FLAGS "-fsanitize=address ${LRCX_LINKER_FLAGS}")
 endif()
+
+if (NOT LRCX_NO_LIBCXX)
+	set(LRCX_COMPILER_FLAGS "-stdlib=libc++ ${LRCX_COMPILER_FLAGS}")
+	set(LRCX_LINKER_FLAGS "-lc++abi ${LRCX_LINKER_FLAGS}")
+endif()
