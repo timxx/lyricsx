@@ -4,14 +4,11 @@ add_library(lrc SHARED
 	lrc_export.h
 	lrcreader.cpp
 	lrcreader.h
-	lrcwriter.cpp
-	lrcwriter.h
 	)
 
 generate_public_header(lrc
 	lrc.h
 	lrcreader.h
-	lrcwriter.h
 	)
 
 set_target_properties(lrc
