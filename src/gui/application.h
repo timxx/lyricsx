@@ -19,6 +19,10 @@ public:
 		AS_WindowMaximized,
 		AS_LrcLastDir,
 		AS_MusicLastDir,
+		AS_EditorFontFamily,
+		AS_EditorFontStyle,
+		AS_EditorFontSize,
+		AS_LrcEditor,
 	};
 
 public:

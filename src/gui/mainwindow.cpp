@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "playerwidget.h"
 #include "application.h"
+#include "preferences.h"
 
 #include <QToolBar>
 #include <QDesktopWidget>
@@ -87,6 +88,8 @@ void MainWindow::loadSettings()
 	value = xApp->settings(Application::AS_WindowMaximized);
 	if (value.isValid() && value.toBool())
 		showMaximized();
+
+	resetEditorFont();
 }
 
 void MainWindow::saveSettings()
@@ -109,6 +112,25 @@ void MainWindow::moveToCenter()
 	int y = (rc.height() - height()) / 2;
 
 	move(x, y);
+}
+
+void MainWindow::resetEditorFont()
+{
+	QFont font = m_ui->lrcEditor->font();
+
+	QVariant value = xApp->settings(Application::AS_EditorFontFamily);
+	if (value.isValid())
+		font.setFamily(value.toString());
+
+	value = xApp->settings(Application::AS_EditorFontStyle);
+	if (value.isValid())
+		font.setStyleName(value.toString());
+
+	value = xApp->settings(Application::AS_EditorFontSize);
+	if (value.isValid())
+		font.setPointSize(value.toInt());
+
+	m_ui->lrcEditor->setFont(font);
 }
 
 void MainWindow::onAction_Open()
@@ -199,7 +221,11 @@ void MainWindow::onAction_ExpandMarks()
 
 void MainWindow::onAction_Preferences()
 {
-
+	Preferences prefDlg(this);
+	if (prefDlg.exec() == QDialog::Accepted)
+	{
+		resetEditorFont();
+	}
 }
 
 LRCX_END_NS

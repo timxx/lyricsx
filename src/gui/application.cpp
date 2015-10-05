@@ -43,6 +43,10 @@ const QString& Application::asToString(AppSettings as) const
 		{ AS_WindowMaximized,    "WindowMax" },
 		{ AS_LrcLastDir,         "LrcLastDir" },
 		{ AS_MusicLastDir,       "MusicLastDir" },
+		{ AS_EditorFontFamily,   "EditorFont" },
+		{ AS_EditorFontStyle,    "EditorFontStyle" },
+		{ AS_EditorFontSize,     "EditorFontSize" },
+		{ AS_LrcEditor,          "LrcEditor" },
 	};
 
 	return s_map[as];

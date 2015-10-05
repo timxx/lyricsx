@@ -16,6 +16,9 @@ add_executable(lyricx
 	playerwidget.cpp
 	playerwidget.h
 	playerwidget.ui
+	preferences.cpp
+	preferences.h
+	preferences.ui
 	)
 
 target_link_libraries(lyricx

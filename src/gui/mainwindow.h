@@ -28,6 +28,8 @@ private:
 
 	void moveToCenter();
 
+	void resetEditorFont();
+
 private Q_SLOTS:
 	// File menu
 	void onAction_Open();

@@ -1,6 +1,7 @@
 #include "playerwidget.h"
 #include "ui_playerwidget.h"
 #include "musicselector.h"
+#include "application.h"
 
 static QString _ms2mmss(qint64 ms)
 {
@@ -68,7 +69,13 @@ void PlayerWidget::onBtnOpen_Clicked()
 	m_ui->le_Artist->setText(player->metaData(Player::Artist).toString());
 	m_ui->le_Album->setText(player->metaData(Player::AlbumTitle).toString());
 	if (m_ui->le_Editor->text().trimmed().isEmpty())
-		m_ui->le_Editor->setText(tr("LyricsX"));
+	{
+		QVariant editor = xApp->settings(Application::AS_LrcEditor);
+		if (editor.isValid())
+			m_ui->le_Editor->setText(editor.toString());
+		else
+			m_ui->le_Editor->setText(tr("LyricsX"));
+	}
 
 	QString strTitle = player->metaData(Player::Artist).toString();
 	if (strTitle.isEmpty())
