@@ -71,7 +71,10 @@ void PlayerWidget::onBtnOpen_Clicked()
 		m_ui->le_Editor->setText(tr("LyricsX"));
 
 	QString strTitle = player->metaData(Player::Artist).toString();
-	strTitle += " - " + player->metaData(Player::Title).toString();
+	if (strTitle.isEmpty())
+		strTitle = player->metaData(Player::Title).toString();
+	else
+		strTitle += " - " + player->metaData(Player::Title).toString();
 	setWindowTitle(strTitle);
 
 	m_ui->btn_PlayPause->setEnabled(true);
