@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(m_ui->action_Delete_mark, SIGNAL(triggered()), this, SLOT(onAction_DeleteMark()));
 	connect(m_ui->action_Remove_all_marks, SIGNAL(triggered()), this, SLOT(onAction_RemoveAllMarks()));
 	connect(m_ui->action_Add_music_info, SIGNAL(triggered()), this, SLOT(onAction_AddMusicInfo()));
+	connect(m_ui->action_Merge_Lyrics, SIGNAL(triggered()), this, SLOT(onAction_MergeLyrics()));
+	connect(m_ui->action_Expand_Marks, SIGNAL(triggered()), this, SLOT(onAction_ExpandMarks()));
 
 	connect(m_ui->action_Preferences, SIGNAL(triggered()), this, SLOT(onAction_Preferences()));
 
@@ -129,12 +131,30 @@ void MainWindow::onAction_Open()
 
 void MainWindow::onAction_Save()
 {
-
+	if (m_ui->lrcEditor->getFile().isEmpty())
+		onAction_Saveas();
+	else
+		m_ui->lrcEditor->saveFile();
 }
 
 void MainWindow::onAction_Saveas()
 {
+	const QString strFilter = tr("LRC files (*.lrc)");
+	QFileInfo fileInfo(xApp->settings(Application::AS_LrcLastDir).toString());
 
+	QString strFile = QFileDialog::getSaveFileName(this,
+												   tr("Save File"),
+												   fileInfo.path(),
+												   strFilter);
+
+	if (!strFile.isEmpty())
+	{
+		if (!strFile.endsWith(".lrc", Qt::CaseInsensitive))
+			strFile.append(".lrc");
+
+		m_ui->lrcEditor->saveFileAs(strFile);
+		xApp->setSetting(Application::AS_LrcLastDir, strFile);
+	}
 }
 
 void MainWindow::onAction_Quit()
@@ -165,6 +185,16 @@ void MainWindow::onAction_AddMusicInfo()
 	editor->setArtist(m_playerWidget->getArtist());
 	editor->setAlbum(m_playerWidget->getAlbum());
 	editor->setCreator(m_playerWidget->getEditor());
+}
+
+void MainWindow::onAction_MergeLyrics()
+{
+	m_ui->lrcEditor->mergeLyrics();
+}
+
+void MainWindow::onAction_ExpandMarks()
+{
+	m_ui->lrcEditor->expandMarks();
 }
 
 void MainWindow::onAction_Preferences()

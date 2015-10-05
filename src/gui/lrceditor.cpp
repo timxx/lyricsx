@@ -3,7 +3,7 @@
 
 #include <lrc/lrcreader.h>
 
-#include <QKeyEvent>
+#include <QTextStream>
 #include <QDebug>
 
 static QString _makeTimeTag(qint64 ms)
@@ -22,6 +22,7 @@ LRCX_BEGIN_NS
 LrcEditor::LrcEditor(QWidget *parent)
 	: QTextEdit(parent)
 	, m_expTag("^\\[[A-Za-z]+:.*\\][\\s]{0,}$")
+	, m_charNewLine('\n')
 {
 	new LrcHighlighter(document());
 }
@@ -41,6 +42,29 @@ bool LrcEditor::openFile(const QString &file)
 	qfile.close();
 
 	m_file = file;
+	return true;
+}
+
+bool LrcEditor::saveFile()
+{
+	Q_ASSERT(!m_file.isEmpty());
+	return saveFileAs(m_file);
+}
+
+bool LrcEditor::saveFileAs(const QString &file)
+{
+	QFile qFile(file);
+	if (!qFile.open(QFile::WriteOnly | QFile::Text))
+		return false;
+
+	QTextStream os(&qFile);
+	os.setCodec("UTF-8");
+	os.setGenerateByteOrderMark(true);
+
+	os << toPlainText();
+
+	qFile.close();
+
 	return true;
 }
 
@@ -133,9 +157,104 @@ void LrcEditor::removeAllMarks()
 
 	strText.remove(QRegExp( "\\[\\d+:\\d+\\.\\d+\\]" ));
 
-	// for  undo/redo :(
-	selectAll();
-	insertPlainText(strText);
+	replaceWholeText(strText);
+}
+
+void LrcEditor::mergeLyrics()
+{
+	QByteArray strText = toPlainText().toLocal8Bit();
+	if (strText.isEmpty())
+		return ;
+
+	LrcReader parser(strText, strText.length());
+	parser.parse();
+
+	QStringList newText;
+
+	const LRC &lrc = parser.getLrc();
+	generateTags(newText, lrc);
+
+	struct Line
+	{
+		std::string lyrics;
+		std::vector<int> times;
+
+		Line(const LRC::Line &line)
+		{
+			lyrics = line.lyrics;
+			times.push_back(line.time);
+		}
+	};
+
+	std::vector<Line> sortedLines;
+
+	const auto &lines = lrc.getLines();
+	// merge the same lyrics
+	for (const auto &line : lines)
+	{
+		auto it = sortedLines.begin();
+		for ( ; it != sortedLines.end(); ++it)
+		{
+			if (it->lyrics == line.lyrics)
+				break;
+		}
+
+		if (it != sortedLines.end())
+			it->times.push_back(line.time);
+		else
+			sortedLines.push_back(Line(line));
+	}
+
+	// sort by time
+	std::sort(sortedLines.begin(), sortedLines.end(), [](Line &rhl, Line &rhs)
+	{
+		Q_ASSERT(rhl.times.size() > 0 && rhs.times.size() > 0);
+
+		std::sort(rhl.times.begin(), rhl.times.end(), std::greater<int>());
+		std::sort(rhs.times.begin(), rhs.times.end(), std::greater<int>());
+
+		return rhl.times.back() < rhs.times.back();
+	});
+
+	for (const auto &line : sortedLines)
+	{
+		QString strLine;
+		for (auto time : line.times)
+		{
+			strLine += _makeTimeTag(time);
+		}
+		strLine += QString::fromStdString(line.lyrics);
+
+		newText << strLine;
+	}
+
+	replaceWholeText(newText.join(m_charNewLine));
+}
+
+void LrcEditor::expandMarks()
+{
+	QByteArray strText = toPlainText().toLocal8Bit();
+	if (strText.isEmpty())
+		return ;
+
+	LrcReader parser(strText, strText.length());
+	parser.parse();
+
+	QStringList newText;
+
+	const LRC &lrc = parser.getLrc();
+	generateTags(newText, lrc);
+
+	const auto &lines = lrc.getLines();
+	for (const auto &line : lines)
+	{
+		QString strLine = _makeTimeTag(line.time);
+		strLine += QString::fromStdString(line.lyrics);
+
+		newText << strLine;
+	}
+
+	replaceWholeText(newText.join(m_charNewLine));
 }
 
 void LrcEditor::addTag(const QString &attr, const QString &value)
@@ -176,7 +295,7 @@ void LrcEditor::addTag(const QString &attr, const QString &value)
 	{
 		QTextCursor cursor = textCursor();
 		cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-		cursor.insertText(newValue + '\n');
+		cursor.insertText(newValue + m_charNewLine);
 	}
 }
 
@@ -199,6 +318,25 @@ void LrcEditor::gotoNextMark(QTextCursor &cursor)
 
 	setTextCursor(cursor);
 	ensureCursorVisible();
+}
+
+void LrcEditor::replaceWholeText(const QString &text)
+{
+	// for  undo/redo :(
+	selectAll();
+	insertPlainText(text);
+}
+
+void LrcEditor::generateTags(QStringList &list, const LRC &lrc)
+{
+	const auto &attrs = lrc.attributes();
+
+	for (const auto &attr : attrs)
+	{
+		QString strTag = "[" + QString::fromStdString(attr.first) + ":" +
+				QString::fromStdString(attr.second) + "]";
+		list << strTag;
+	}
 }
 
 LRCX_END_NS

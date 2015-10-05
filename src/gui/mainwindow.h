@@ -40,6 +40,8 @@ private Q_SLOTS:
 	void onAction_DeleteMark();
 	void onAction_RemoveAllMarks();
 	void onAction_AddMusicInfo();
+	void onAction_MergeLyrics();
+	void onAction_ExpandMarks();
 
 	// Settings menu
 	void onAction_Preferences();
