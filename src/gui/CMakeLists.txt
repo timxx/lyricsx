@@ -19,6 +19,9 @@ add_executable(lyricx
 	preferences.cpp
 	preferences.h
 	preferences.ui
+	encodingchooser.cpp
+	encodingchooser.h
+	encodingchooser.ui
 	)
 
 target_link_libraries(lyricx

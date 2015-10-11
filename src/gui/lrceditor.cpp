@@ -4,6 +4,7 @@
 #include <lrc/lrcreader.h>
 
 #include <QTextStream>
+#include <QTextCodec>
 #include <QDebug>
 
 static QString _makeTimeTag(qint64 ms)
@@ -32,16 +33,26 @@ LrcEditor::~LrcEditor()
 
 }
 
-bool LrcEditor::openFile(const QString &file)
+bool LrcEditor::openFile(const QString &file, const QString &encoding)
 {
 	QFile qfile(file);
 	if (!qfile.open(QFile::ReadOnly | QFile::Text))
 		return false;
 
-	setPlainText(qfile.readAll());
+	QTextStream is(&qfile);
+	if (!encoding.isEmpty())
+	{
+		is.setAutoDetectUnicode(false);
+		is.setCodec(encoding.toLocal8Bit());
+	}
+
+	setPlainText(is.readAll());
+
+	m_encoding = is.codec()->name();
+	m_file = file;
+
 	qfile.close();
 
-	m_file = file;
 	return true;
 }
 

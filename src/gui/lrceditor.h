@@ -16,11 +16,13 @@ public:
 	LrcEditor(QWidget *parent = 0);
 	~LrcEditor();
 
-	bool openFile(const QString &file);
+	bool openFile(const QString &file, const QString &encoding = QString());
 	bool saveFile();
 	bool saveFileAs(const QString &file);
 
 	QString getFile() const;
+
+	QString currentEncoding() const { return m_encoding; }
 
 	void setTitle(const QString &title);
 	void setArtist(const QString &artist);
@@ -46,6 +48,7 @@ private:
 	QString m_file;
 	QRegExp m_expTag;
 	QChar m_charNewLine;
+	QString m_encoding;
 };
 
 LRCX_END_NS

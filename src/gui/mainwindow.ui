@@ -34,6 +34,7 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_Open"/>
+    <addaction name="action_Reload_With_Encoding"/>
     <addaction name="separator"/>
     <addaction name="action_Save"/>
     <addaction name="action_Save_as"/>
@@ -199,6 +200,11 @@
   <action name="action_Expand_Marks">
    <property name="text">
     <string>Expand Marks</string>
+   </property>
+  </action>
+  <action name="action_Reload_With_Encoding">
+   <property name="text">
+    <string>Reload With Encoding...</string>
    </property>
   </action>
  </widget>

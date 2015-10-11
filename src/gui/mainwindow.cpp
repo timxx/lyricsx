@@ -3,6 +3,7 @@
 #include "playerwidget.h"
 #include "application.h"
 #include "preferences.h"
+#include "encodingchooser.h"
 
 #include <QToolBar>
 #include <QDesktopWidget>
@@ -26,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 	createToolBars();
 
 	connect(m_ui->action_Open, SIGNAL(triggered()), this, SLOT(onAction_Open()));
+	connect(m_ui->action_Reload_With_Encoding, SIGNAL(triggered()), this, SLOT(onAction_ReloadWithEncoding()));
 	connect(m_ui->action_Save, SIGNAL(triggered()), this, SLOT(onAction_Save()));
 	connect(m_ui->action_Save_as, SIGNAL(triggered()), this, SLOT(onAction_Saveas()));
 	connect(m_ui->action_Quit, SIGNAL(triggered()), this, SLOT(onAction_Quit()));
@@ -46,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 	m_ui->action_Undo->setEnabled(false);
 	m_ui->action_Redo->setEnabled(false);
+
+	m_ui->action_Reload_With_Encoding->setEnabled(false);
 
 	loadSettings();
 }
@@ -145,9 +149,26 @@ void MainWindow::onAction_Open()
 												   );
 	if (!lrcFile.isEmpty())
 	{
-		m_ui->lrcEditor->openFile(lrcFile);
+		bool ok = m_ui->lrcEditor->openFile(lrcFile);
+		m_ui->action_Reload_With_Encoding->setEnabled(ok);
 
 		xApp->setSetting(Application::AS_LrcLastDir, lrcFile);
+	}
+}
+
+void MainWindow::onAction_ReloadWithEncoding()
+{
+	EncodingChooser chooser(this);
+
+	QString strFile = m_ui->lrcEditor->getFile();
+	QFile qfile(strFile);
+	if (qfile.open(QFile::ReadOnly))
+		chooser.setPreviewData(qfile.readAll());
+	chooser.setCurrentEncoding(m_ui->lrcEditor->currentEncoding());
+
+	if (chooser.exec() == QDialog::Accepted)
+	{
+		m_ui->lrcEditor->openFile(strFile, chooser.getCurrentEncoding());
 	}
 }
 

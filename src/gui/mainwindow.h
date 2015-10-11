@@ -33,6 +33,7 @@ private:
 private Q_SLOTS:
 	// File menu
 	void onAction_Open();
+	void onAction_ReloadWithEncoding();
 	void onAction_Save();
 	void onAction_Saveas();
 	void onAction_Quit();
