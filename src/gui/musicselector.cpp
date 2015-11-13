@@ -15,7 +15,12 @@ MusicSelector::MusicSelector(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
+#ifndef LRCX_HAVE_DBUS
+	m_ui->rb_Mpris->setVisible(false);
+	m_ui->cb_Mpris->setVisible(false);
+#else
 	initMpris();
+#endif
 
 	connect(m_ui->rb_Local, SIGNAL(clicked(bool)), this, SLOT(onRB_Local_Clicked(bool)));
 	connect(m_ui->rb_Mpris, SIGNAL(clicked(bool)), this, SLOT(onRB_Mpris_Clicked(bool)));
@@ -44,19 +49,37 @@ std::unique_ptr<Player> MusicSelector::select()
 				player->open(strFile);
 			}
 		}
+#ifdef LRCX_HAVE_DBUS
 		else
 		{
-			// TODO
+			int idx = selector.m_ui->cb_Mpris->currentIndex();
+			if (idx != -1)
+			{
+				player = PlayerFactory::create("mpris");
+				player->open(selector.m_ui->cb_Mpris->itemData(idx).toString());
+			}
 		}
+#endif
 	}
 
 	return player;
 }
 
+#ifdef LRCX_HAVE_DBUS
 void MusicSelector::initMpris()
 {
+	m_mprisPlayer = new MprisPlayerHelper(this);
 
+	const auto &players = m_mprisPlayer->getPlayers();
+	for (const auto &info : players)
+	{
+		onMprisPlayerAdded(info);
+	}
+
+	connect(m_mprisPlayer, SIGNAL(playerAdded(MprisPlayerInfo)), this, SLOT(onMprisPlayerAdded(MprisPlayerInfo)));
+	connect(m_mprisPlayer, SIGNAL(playerClosed(MprisPlayerInfo)), this, SLOT(onMprisPlayerClosed(MprisPlayerInfo)));
 }
+#endif
 
 void MusicSelector::onRB_Local_Clicked(bool checked)
 {
@@ -88,5 +111,30 @@ void MusicSelector::onBtn_Open_Clicked(bool checked)
 		xApp->setSetting(Application::AS_MusicLastDir, strFile);
 	}
 }
+
+#ifdef LRCX_HAVE_DBUS
+
+void MusicSelector::onMprisPlayerAdded(const MprisPlayerInfo &player)
+{
+	onMprisPlayerClosed(player);
+
+	QIcon icon;
+	QFileInfo fi(player.icon);
+	if (fi.isAbsolute())
+		icon = QIcon(player.icon);
+	else
+		icon = QIcon::fromTheme(player.icon);
+
+	m_ui->cb_Mpris->addItem(icon, player.name, QVariant(player.service));
+}
+
+void MusicSelector::onMprisPlayerClosed(const MprisPlayerInfo &player)
+{
+	int idx = m_ui->cb_Mpris->findData(QVariant(player.service));
+	if (idx != -1)
+		m_ui->cb_Mpris->removeItem(idx);
+}
+
+#endif // LRCX_HAVE_DBUS
 
 LRCX_END_NS

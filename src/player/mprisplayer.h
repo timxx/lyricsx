@@ -3,6 +3,8 @@
 
 #include "player.h"
 
+class MediaPlayer2Player;
+
 LRCX_BEGIN_NS
 
 class MprisPlayer : public Player
@@ -12,7 +14,7 @@ public:
 	MprisPlayer(QObject *parent = 0);
 	~MprisPlayer();
 
-	void open(const QString &uri) override;
+	void open(const QString &service) override;
 
 	qint64 duration() const override;
 
@@ -28,6 +30,19 @@ public:
 	void stop() override;
 
 	QVariant metaData(MetaData key) override;
+
+private:
+	State statusToState(const QString &status) const;
+
+private Q_SLOTS:
+	void onPlayerPositionChanged(qlonglong position);
+	void onPlayerDurationChanged(qlonglong duration);
+	void onPlayerStatusChanged(const QString &status);
+	void onPlayerMetadataChanged(const QString &key, const QVariant &value);
+
+private:
+	QString m_service;
+	MediaPlayer2Player *m_player;
 };
 
 LRCX_END_NS

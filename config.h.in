@@ -7,6 +7,7 @@
 #include <memory>
 
 #define VERSION "@version@"
+#cmakedefine LRCX_HAVE_DBUS
 
 #ifndef LRCX_NS
 #  define LRCX_NS lrcxns

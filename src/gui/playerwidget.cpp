@@ -5,6 +5,9 @@
 
 static QString _ms2mmss(qint64 ms)
 {
+	if (ms == 0)
+		return "--:--";
+
 	int ss = ms / 1000;
 	int mm = ss / 60;
 	ss = ss % 60;
@@ -76,7 +79,10 @@ void PlayerWidget::onBtnOpen_Clicked()
 		return ;
 
 	if (m_player)
+	{
 		m_player->disconnect();
+		m_player->deleteLater();
+	}
 
 	m_player = std::move(player);
 
@@ -96,6 +102,11 @@ void PlayerWidget::onBtnOpen_Clicked()
 
 	m_ui->btn_PlayPause->setEnabled(true);
 	m_ui->slider_Duration->setEnabled(m_player->isSeekable());
+	m_ui->slider_Duration->setMaximum(m_player->duration());
+	m_ui->slider_Duration->setValue(m_player->position());
+
+	onPlayerPositionChanged(m_player->position());
+	onPlayerStateChanged(m_player->state());
 
 	connect(m_player.get(), SIGNAL(stateChanged(Player::State)), this, SLOT(onPlayerStateChanged(Player::State)));
 	connect(m_player.get(), SIGNAL(durationChanged(qint64)), this, SLOT(onPlayerDurationChanged(qint64)));
@@ -140,6 +151,7 @@ void PlayerWidget::onPlayerStateChanged(Player::State state)
 void PlayerWidget::onPlayerDurationChanged(qint64 duration)
 {
 	m_ui->slider_Duration->setMaximum(duration);
+	onPlayerPositionChanged(m_player->position());
 }
 
 void PlayerWidget::onPlayerPositionChanged(qint64 pos)
