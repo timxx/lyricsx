@@ -26,6 +26,9 @@ public:
 
 	qint64 getCurrentPosition() const;
 
+private:
+	void updateTitle();
+
 private Q_SLOTS:
 	void onBtnOpen_Clicked();
 	void onBtnPlayPause_Clicked();
@@ -34,6 +37,7 @@ private Q_SLOTS:
 	void onPlayerStateChanged(Player::State state);
 	void onPlayerDurationChanged(qint64 duration);
 	void onPlayerPositionChanged(qint64 pos);
+	void onPlayerMetadataChanged(Player::MetaData key, const QVariant &value);
 
 private:
 	std::shared_ptr<Ui::PlayerWidget> m_ui;

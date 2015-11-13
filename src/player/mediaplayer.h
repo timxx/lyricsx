@@ -33,6 +33,7 @@ public:
 
 private Q_SLOTS:
 	void onStateChanged(QMediaPlayer::State state);
+	void onMetaDataChanged(const QString &key, const QVariant &value);
 
 private:
 	std::shared_ptr<QMediaPlayer> m_player;

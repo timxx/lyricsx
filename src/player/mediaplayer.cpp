@@ -1,7 +1,6 @@
 #include "mediaplayer.h"
 
 #include <QMediaMetaData>
-#include <QEventLoop>
 
 LRCX_BEGIN_NS
 
@@ -13,6 +12,7 @@ MediaPlayer::MediaPlayer(QObject *parent)
 	connect(m_player.get(), SIGNAL(positionChanged(qint64)), this, SIGNAL(positionChanged(qint64)));
 	connect(m_player.get(), SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(onStateChanged(QMediaPlayer::State)));
 	connect(m_player.get(), SIGNAL(seekableChanged(bool)), this, SIGNAL(seekableChanged(bool)));
+	connect(m_player.get(), SIGNAL(metaDataChanged(QString,QVariant)), this, SLOT(onMetaDataChanged(QString,QVariant)));
 }
 
 MediaPlayer::~MediaPlayer()
@@ -23,11 +23,6 @@ MediaPlayer::~MediaPlayer()
 void MediaPlayer::open(const QString &uri)
 {
 	m_player->setMedia(QUrl::fromLocalFile(uri));
-
-	// FIXME: ugly code
-	QEventLoop loop;
-	connect(m_player.get(), SIGNAL(metaDataAvailableChanged(bool)), &loop, SLOT(quit()));
-	loop.exec();
 }
 
 qint64 MediaPlayer::duration() const
@@ -85,6 +80,19 @@ QVariant MediaPlayer::metaData(MetaData key)
 void MediaPlayer::onStateChanged(QMediaPlayer::State state)
 {
 	emit stateChanged(Player::State(state));
+}
+
+void MediaPlayer::onMetaDataChanged(const QString &key, const QVariant &value)
+{
+	static std::map<QString, MetaData> s_keys =
+	{
+		{ QMediaMetaData::Title,                  Title },
+		{ QMediaMetaData::ContributingArtist,     Artist },
+		{ QMediaMetaData::AlbumTitle,             AlbumTitle },
+	};
+
+	if (s_keys.find(key) != s_keys.end())
+		emit metaDataChanged(s_keys[key], value);
 }
 
 LRCX_END_NS

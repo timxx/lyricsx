@@ -59,15 +59,30 @@ qint64 PlayerWidget::getCurrentPosition() const
 	return 0;
 }
 
+void PlayerWidget::updateTitle()
+{
+	QString strTitle = m_player->metaData(Player::Artist).toString();
+	if (strTitle.isEmpty())
+		strTitle = m_player->metaData(Player::Title).toString();
+	else
+		strTitle += " - " + m_player->metaData(Player::Title).toString();
+	setWindowTitle(strTitle);
+}
+
 void PlayerWidget::onBtnOpen_Clicked()
 {
 	std::unique_ptr<Player> player(MusicSelector::select());
 	if (player == nullptr)
 		return ;
 
-	m_ui->le_Title->setText(player->metaData(Player::Title).toString());
-	m_ui->le_Artist->setText(player->metaData(Player::Artist).toString());
-	m_ui->le_Album->setText(player->metaData(Player::AlbumTitle).toString());
+	if (m_player)
+		m_player->disconnect();
+
+	m_player = std::move(player);
+
+	m_ui->le_Title->setText(m_player->metaData(Player::Title).toString());
+	m_ui->le_Artist->setText(m_player->metaData(Player::Artist).toString());
+	m_ui->le_Album->setText(m_player->metaData(Player::AlbumTitle).toString());
 	if (m_ui->le_Editor->text().trimmed().isEmpty())
 	{
 		QVariant editor = xApp->settings(Application::AS_LrcEditor);
@@ -77,24 +92,15 @@ void PlayerWidget::onBtnOpen_Clicked()
 			m_ui->le_Editor->setText(tr("LyricsX"));
 	}
 
-	QString strTitle = player->metaData(Player::Artist).toString();
-	if (strTitle.isEmpty())
-		strTitle = player->metaData(Player::Title).toString();
-	else
-		strTitle += " - " + player->metaData(Player::Title).toString();
-	setWindowTitle(strTitle);
+	updateTitle();
 
 	m_ui->btn_PlayPause->setEnabled(true);
-	m_ui->slider_Duration->setEnabled(true);
-
-	if (m_player)
-		m_player->disconnect();
-
-	m_player = std::move(player);
+	m_ui->slider_Duration->setEnabled(m_player->isSeekable());
 
 	connect(m_player.get(), SIGNAL(stateChanged(Player::State)), this, SLOT(onPlayerStateChanged(Player::State)));
 	connect(m_player.get(), SIGNAL(durationChanged(qint64)), this, SLOT(onPlayerDurationChanged(qint64)));
 	connect(m_player.get(), SIGNAL(positionChanged(qint64)), this, SLOT(onPlayerPositionChanged(qint64)));
+	connect(m_player.get(), SIGNAL(metaDataChanged(Player::MetaData,QVariant)), this, SLOT(onPlayerMetadataChanged(Player::MetaData,QVariant)));
 }
 
 void PlayerWidget::onBtnPlayPause_Clicked()
@@ -145,6 +151,26 @@ void PlayerWidget::onPlayerPositionChanged(qint64 pos)
 	m_ui->slider_Duration->blockSignals(true);
 	m_ui->slider_Duration->setValue(pos);
 	m_ui->slider_Duration->blockSignals(false);
+}
+
+void PlayerWidget::onPlayerMetadataChanged(Player::MetaData key, const QVariant &value)
+{
+	switch (key)
+	{
+	case Player::Title:
+		m_ui->le_Title->setText(value.toString());
+		updateTitle();
+		break;
+
+	case Player::Artist:
+		m_ui->le_Artist->setText(value.toString());
+		updateTitle();
+		break;
+
+	case Player::AlbumTitle:
+		m_ui->le_Album->setText(value.toString());
+		break;
+	}
 }
 
 LRCX_END_NS

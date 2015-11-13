@@ -58,6 +58,7 @@ Q_SIGNALS:
 	void positionChanged(qint64 position);
 	void stateChanged(Player::State newState);
 	void seekableChanged(bool);
+	void metaDataChanged(Player::MetaData key, const QVariant &value);
 };
 
 LRCX_END_NS
