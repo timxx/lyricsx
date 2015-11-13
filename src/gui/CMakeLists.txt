@@ -1,4 +1,4 @@
-add_executable(lyricx
+add_executable(lyricsx
 	icons.qrc
 	application.cpp
 	application.h
@@ -24,7 +24,7 @@ add_executable(lyricx
 	encodingchooser.ui
 	)
 
-target_link_libraries(lyricx
+target_link_libraries(lyricsx
 	lrc
 	player
 	Qt5::Core
