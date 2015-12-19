@@ -19,3 +19,5 @@ set_target_properties(lrc
 target_link_libraries(lrc
 	Qt5::Core
 	)
+
+install_lib(lrc)

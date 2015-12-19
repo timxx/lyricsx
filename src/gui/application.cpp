@@ -9,7 +9,7 @@ Application::Application(int &argc, char **argv)
 	: QApplication(argc, argv)
 {
 	setApplicationName("lrcx");
-	setWindowIcon(QIcon(":/icons/lrcx.png"));
+	setWindowIcon(QIcon::fromTheme(QLatin1String("lyricsx")));
 
 	m_settings.reset(new QSettings(QSettings::NativeFormat,
 								   QSettings::UserScope,

@@ -59,3 +59,5 @@ endif()
 target_link_libraries(player
 	${player_LIB}
 	)
+
+install_lib(player)

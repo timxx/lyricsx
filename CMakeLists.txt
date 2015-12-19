@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
 project(lyricsx)
 
-set(version 1.0.0)
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 0)
+set(version "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+set(LRCX_RUNTIME_DIR "${CMAKE_INSTALL_PREFIX}/lyricsx/lib")
 
 include(CMakeParseArguments)
 include(CheckIncludeFiles)
@@ -20,6 +25,7 @@ add_custom_target(uninstall
 	COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+SET(CMAKE_INSTALL_RPATH "${LRCX_RUNTIME_DIR}")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -34,6 +40,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
 add_subdirectory(src)
+add_subdirectory(data)
 
 if (LRCX_ENABLE_TESTS)
 	add_subdirectory(tests)

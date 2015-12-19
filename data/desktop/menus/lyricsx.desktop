@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=LyricsX
+Comment=Lyrics Editor
+Comment[zh_CN]=LRC歌词编辑器
+Exec=lyricsx %F
+Icon=lyricsx
+Terminal=false
+Type=Application
+Categories=Utility;TextEditor;
+MimeType=text/x-lyrics;
+Keywords=Text;lrc;lyrics;editor;
+StartupWMClass=lyricsx

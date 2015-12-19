@@ -36,3 +36,11 @@ macro(ADD_TEST_TARGET target)
 		${LRCX_TEST_LIBS}
 		)
 endmacro()
+
+macro(INSTALL_BIN target)
+	install(TARGETS ${target} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+endmacro()
+
+macro(INSTALL_LIB target)
+	install(TARGETS ${target} LIBRARY DESTINATION "${LRCX_RUNTIME_DIR}")
+endmacro()
