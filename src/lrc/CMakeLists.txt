@@ -17,6 +17,5 @@ set_target_properties(lrc
 	)
 
 target_link_libraries(lrc
-	utils
 	Qt5::Core
 	)

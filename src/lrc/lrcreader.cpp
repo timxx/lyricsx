@@ -1,8 +1,8 @@
 #include "lrcreader.h"
 
-#include <utils/log.h>
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
 
 static size_t _skipNewLine(const std::string &str, size_t begin)
 {
@@ -111,7 +111,7 @@ bool LrcReader::parse()
 
 		if (!parseLine(_trimString(line)))
 		{
-			Log::log("LrcReader::parse: invalid line %u", lineNo);
+			qDebug() << "LrcReader::parse: invalid line" << lineNo;
 		}
 	}
 
