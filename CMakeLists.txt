@@ -6,7 +6,7 @@ set(VERSION_MINOR 0)
 set(VERSION_PATCH 0)
 set(version "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-set(LRCX_RUNTIME_DIR "${CMAKE_INSTALL_PREFIX}/lyricsx/lib")
+set(LRCX_RUNTIME_DIR "${CMAKE_INSTALL_PREFIX}/lib/lyricsx")
 
 include(CMakeParseArguments)
 include(CheckIncludeFiles)
