@@ -20,6 +20,8 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	bool openFile(const QString &filePath);
+
 private:
 	void createToolBars();
 

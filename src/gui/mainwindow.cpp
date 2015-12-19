@@ -59,6 +59,13 @@ MainWindow::~MainWindow()
 	saveSettings();
 }
 
+bool MainWindow::openFile(const QString &filePath)
+{
+	bool ok = m_ui->lrcEditor->openFile(filePath);
+	m_ui->action_Reload_With_Encoding->setEnabled(ok);
+	return ok;
+}
+
 void MainWindow::createToolBars()
 {
 	QToolBar *fileToolbar = addToolBar(QLatin1String("File Toolbar"));
@@ -149,8 +156,7 @@ void MainWindow::onAction_Open()
 												   );
 	if (!lrcFile.isEmpty())
 	{
-		bool ok = m_ui->lrcEditor->openFile(lrcFile);
-		m_ui->action_Reload_With_Encoding->setEnabled(ok);
+		openFile(lrcFile);
 
 		xApp->setSetting(Application::AS_LrcLastDir, lrcFile);
 	}
