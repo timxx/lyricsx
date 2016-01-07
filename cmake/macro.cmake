@@ -44,3 +44,7 @@ endmacro()
 macro(INSTALL_LIB target)
 	install(TARGETS ${target} LIBRARY DESTINATION "${LRCX_RUNTIME_DIR}")
 endmacro()
+
+macro(INSTALL_FILES destination)
+	install(FILES ${ARGN} DESTINATION ${destination})
+endmacro()
