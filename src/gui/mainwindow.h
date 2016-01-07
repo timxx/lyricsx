@@ -51,6 +51,9 @@ private Q_SLOTS:
 	// Settings menu
 	void onAction_Preferences();
 
+	// Help menu
+	void onAction_About();
+
 	// LrcEditor
 
 private:

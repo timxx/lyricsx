@@ -22,6 +22,9 @@ add_executable(lyricsx
 	encodingchooser.cpp
 	encodingchooser.h
 	encodingchooser.ui
+	aboutdialog.cpp
+	aboutdialog.h
+	aboutdialog.ui
 	)
 
 target_link_libraries(lyricsx

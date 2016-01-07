@@ -4,6 +4,7 @@
 #include "application.h"
 #include "preferences.h"
 #include "encodingchooser.h"
+#include "aboutdialog.h"
 
 #include <QToolBar>
 #include <QDesktopWidget>
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(m_ui->action_Expand_Marks, SIGNAL(triggered()), this, SLOT(onAction_ExpandMarks()));
 
 	connect(m_ui->action_Preferences, SIGNAL(triggered()), this, SLOT(onAction_Preferences()));
+
+	connect(m_ui->action_About, SIGNAL(triggered()), this, SLOT(onAction_About()));
 
 	connect(m_ui->lrcEditor, SIGNAL(undoAvailable(bool)), m_ui->action_Undo, SLOT(setEnabled(bool)));
 	connect(m_ui->lrcEditor, SIGNAL(redoAvailable(bool)), m_ui->action_Redo, SLOT(setEnabled(bool)));
@@ -253,6 +256,12 @@ void MainWindow::onAction_Preferences()
 	{
 		resetEditorFont();
 	}
+}
+
+void MainWindow::onAction_About()
+{
+	AboutDialog aboutDlg(this);
+	aboutDlg.exec();
 }
 
 LRCX_END_NS
