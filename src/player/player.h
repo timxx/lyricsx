@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2016 Weitian Leung
+ *
+ * This file is part of LyricsX.
+ *
+ * This file is distributed under the MIT License.
+ * See the LICENSE file for details.
+ *
+*/
+
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
