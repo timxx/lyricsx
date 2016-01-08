@@ -10,6 +10,7 @@
 
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
+#include "i18n.h"
 
 LRCX_BEGIN_NS
 
@@ -36,9 +37,9 @@ AboutDialog::~AboutDialog()
 void AboutDialog::initLyricsX()
 {
 	QString strDesc =
-			"<center><h3>" + tr("LyricsX") + " " + VERSION + "</h3></center>"
-			"<center>" + tr("free, open source, cross-platform software for editing lyrics") + "</center>"
-			"<center><a href=https://github.com/timxx/lyricsx>" + tr("Visit project host") + "</a></center>"
+			"<center><h3>" + i18n::appName() + " " + VERSION + "</h3></center>"
+			"<center>" + lrcxns::AboutDialog::tr("free, open source, cross-platform software for editing lyrics") + "</center>"
+			"<center><a href=https://github.com/timxx/lyricsx>" + lrcxns::AboutDialog::tr("Visit project host") + "</a></center>"
 			"<br/>"
 			"<center>Copyright © 2016 Weitian Leung</center>"
 			;

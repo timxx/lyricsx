@@ -48,3 +48,22 @@ endmacro()
 macro(INSTALL_FILES destination)
 	install(FILES ${ARGN} DESTINATION ${destination})
 endmacro()
+
+macro(TRANSLATE_TS_FILES output out_dir)
+	find_program(QT_LRELEASE_EXECUTABLE NAMES lrelease-qt5 lrelease DOC "lrelease path")
+
+	foreach(ts_file ${ARGN})
+		get_filename_component(filename ${ts_file} NAME_WE)
+		set(qm_file ${out_dir}/${filename}.qm)
+		add_custom_command(
+			OUTPUT ${qm_file}
+			COMMAND ${QT_LRELEASE_EXECUTABLE} ARGS -silent ${ts_file} -qm ${qm_file}
+			DEPENDS ${ts_file}
+			COMMENT "Generating ${filename}.qm"
+			)
+		add_custom_target(trans_${filename} ALL DEPENDS ${qm_file})
+		list(APPEND qm_files ${qm_file})
+	endforeach()
+
+	set(${output} ${qm_files})
+endmacro()

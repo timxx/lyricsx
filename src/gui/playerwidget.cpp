@@ -12,6 +12,7 @@
 #include "ui_playerwidget.h"
 #include "musicselector.h"
 #include "application.h"
+#include "i18n.h"
 
 static QString _ms2mmss(qint64 ms)
 {
@@ -105,7 +106,7 @@ void PlayerWidget::onBtnOpen_Clicked()
 		if (editor.isValid())
 			m_ui->le_Editor->setText(editor.toString());
 		else
-			m_ui->le_Editor->setText(tr("LyricsX"));
+			m_ui->le_Editor->setText(i18n::appName());
 	}
 
 	updateTitle();

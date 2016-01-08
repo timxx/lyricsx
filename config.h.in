@@ -17,6 +17,10 @@
 #include <memory>
 
 #define VERSION "@version@"
+
+#define LRCX_DATA_DIR "@LRCX_DATA_DIR@"
+#define LRCX_TRANSLAIONS_DIR "@LRCX_TRANSLAIONS_DIR@"
+
 #cmakedefine LRCX_HAVE_DBUS
 
 #ifndef LRCX_NS

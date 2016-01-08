@@ -11,6 +11,7 @@
 #include "preferences.h"
 #include "ui_preferences.h"
 #include "application.h"
+#include "i18n.h"
 
 #include <QFontDatabase>
 
@@ -41,7 +42,7 @@ void Preferences::initSettings()
 	if (editor.isValid())
 		m_ui->line_Editor->setText(editor.toString());
 	else
-		m_ui->line_Editor->setText(tr("LyricsX"));
+		m_ui->line_Editor->setText(i18n::appName());
 }
 
 void Preferences::saveSettings()

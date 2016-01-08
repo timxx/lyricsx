@@ -25,6 +25,8 @@ add_executable(lyricsx
 	aboutdialog.cpp
 	aboutdialog.h
 	aboutdialog.ui
+	i18n.cpp
+	i18n.h
 	)
 
 target_link_libraries(lyricsx

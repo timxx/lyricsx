@@ -15,6 +15,7 @@
 #include "preferences.h"
 #include "encodingchooser.h"
 #include "aboutdialog.h"
+#include "i18n.h"
 
 #include <QToolBar>
 #include <QDesktopWidget>
@@ -159,11 +160,11 @@ void MainWindow::resetEditorFont()
 
 void MainWindow::onAction_Open()
 {
-	const QString strFilter = tr("LRC files (*.lrc);;All files (*)");
+	const QString strFilter = i18n::filterLRCFiles() + ";;" + i18n::filterAllFiles();
 	QString dir = xApp->settings(Application::AS_LrcLastDir).toString();
 
 	QString lrcFile = QFileDialog::getOpenFileName(this,
-												   tr("Open File"),
+												   i18n::openFileTitle(),
 												   dir,
 												   strFilter
 												   );
@@ -201,11 +202,11 @@ void MainWindow::onAction_Save()
 
 void MainWindow::onAction_Saveas()
 {
-	const QString strFilter = tr("LRC files (*.lrc)");
+	const QString strFilter = i18n::filterLRCFiles();
 	QFileInfo fileInfo(xApp->settings(Application::AS_LrcLastDir).toString());
 
 	QString strFile = QFileDialog::getSaveFileName(this,
-												   tr("Save File"),
+												   i18n::saveFileTitle(),
 												   fileInfo.path(),
 												   strFilter);
 

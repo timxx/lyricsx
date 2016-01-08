@@ -34,6 +34,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
+# for generating qm files only
+set(LRCX_TRANSLATIONS_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin/translations")
+
+set(LRCX_DATA_DIR "${CMAKE_INSTALL_PREFIX}/share/lyricsx")
+set(LRCX_TRANSLAIONS_DIR "${LRCX_DATA_DIR}/translations")
+
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

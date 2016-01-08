@@ -12,6 +12,9 @@
 
 #include <QSettings>
 #include <QIcon>
+#include <QTranslator>
+#include <QLocale>
+#include <QLibraryInfo>
 
 LRCX_BEGIN_NS
 
@@ -20,6 +23,32 @@ Application::Application(int &argc, char **argv)
 {
 	setApplicationName("lrcx");
 	setWindowIcon(QIcon::fromTheme(QLatin1String("lyricsx")));
+
+	QString translation_dirs[] =
+	{
+		applicationDirPath() + "/translations",
+		QStringLiteral(LRCX_TRANSLAIONS_DIR),
+	};
+
+	for (const QString &dir : translation_dirs)
+	{
+		QTranslator *translator = new QTranslator;
+		if (translator->load(QLocale::system(), QString(), QString(), dir))
+			installTranslator(translator);
+		else
+			delete translator;
+	}
+
+	// Qt translations
+	{
+		QTranslator *translator = new QTranslator;
+		QString path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+		QString name = QLocale::system().name();
+		if(translator->load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			installTranslator(translator);
+		else
+			delete translator;
+	}
 
 	m_settings.reset(new QSettings(QSettings::NativeFormat,
 								   QSettings::UserScope,
