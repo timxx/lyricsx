@@ -42,8 +42,6 @@ Application::Application(int &argc, char **argv)
 	// Qt translations
 	{
 		QTranslator *translator = new QTranslator;
-		QString path = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-		QString name = QLocale::system().name();
 		if(translator->load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 			installTranslator(translator);
 		else

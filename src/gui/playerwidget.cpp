@@ -38,7 +38,10 @@ PlayerWidget::PlayerWidget(QWidget *parent)
 
 	connect(m_ui->btn_Open, SIGNAL(clicked(bool)), this, SLOT(onBtnOpen_Clicked()));
 	connect(m_ui->btn_PlayPause, SIGNAL(clicked(bool)), this, SLOT(onBtnPlayPause_Clicked()));
-	connect(m_ui->slider_Duration, SIGNAL(sliderReleased()), this, SLOT(onSliderDuration_Changed()) );
+	connect(m_ui->slider_Duration, SIGNAL(sliderReleased()), this, SLOT(onSliderDuration_Changed()));
+
+	QVariant var = xApp->settings(Application::AS_LrcEditor);
+	m_ui->le_Editor->setText(var.isValid() ? var.toString() : i18n::appName());
 }
 
 PlayerWidget::~PlayerWidget()
@@ -100,14 +103,6 @@ void PlayerWidget::onBtnOpen_Clicked()
 	m_ui->le_Title->setText(m_player->metaData(Player::Title).toString());
 	m_ui->le_Artist->setText(m_player->metaData(Player::Artist).toString());
 	m_ui->le_Album->setText(m_player->metaData(Player::AlbumTitle).toString());
-	if (m_ui->le_Editor->text().trimmed().isEmpty())
-	{
-		QVariant editor = xApp->settings(Application::AS_LrcEditor);
-		if (editor.isValid())
-			m_ui->le_Editor->setText(editor.toString());
-		else
-			m_ui->le_Editor->setText(i18n::appName());
-	}
 
 	updateTitle();
 
