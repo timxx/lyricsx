@@ -52,6 +52,7 @@ endmacro()
 macro(TRANSLATE_TS_FILES output out_dir)
 	find_program(QT_LRELEASE_EXECUTABLE NAMES lrelease-qt5 lrelease DOC "lrelease path")
 
+	file(MAKE_DIRECTORY ${out_dir})
 	foreach(ts_file ${ARGN})
 		get_filename_component(filename ${ts_file} NAME_WE)
 		set(qm_file ${out_dir}/${filename}.qm)
