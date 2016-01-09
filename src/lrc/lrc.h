@@ -51,8 +51,8 @@ public:
 	void append(const Line &line);
 	void clear();
 
-	int count() const;
-	int attrCount() const;
+	size_t count() const;
+	size_t attrCount() const;
 
 	const Line* getLine(int index) const;
 	const Line* getLineByTime(int time) const;

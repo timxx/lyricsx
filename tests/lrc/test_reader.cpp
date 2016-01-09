@@ -17,7 +17,7 @@ static int _convertTimeStr(const char *str)
 {
 	// hh, mm, ss
 	double times[3] = { 0.f, 0.f, 0.f };
-	int length = strlen(str);
+	int length = (int)strlen(str);
 	for (int i = length - 1,  idx = 2; i >= 0 && idx >= 0; --idx, i -= 2)
 	{
 		while (i > 0 && str[i - 1] != ':')

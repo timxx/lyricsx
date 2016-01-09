@@ -206,7 +206,7 @@ int LrcReader::parseTime(const std::string &tag)
 {
 	// hh, mm, ss
 	double times[3] = { 0.f, 0.f, 0.f };
-	for (int i = tag.length() - 1,  idx = 2; i >= 0 && idx >= 0; --idx, i -= 2)
+	for (int i = int(tag.length()) - 1,  idx = 2; i >= 0 && idx >= 0; --idx, i -= 2)
 	{
 		while (i > 0 && tag[i - 1] != ':')
 			--i;

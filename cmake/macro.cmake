@@ -38,15 +38,21 @@ macro(ADD_TEST_TARGET target)
 endmacro()
 
 macro(INSTALL_BIN target)
-	install(TARGETS ${target} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+	if (NOT WIN32)
+		install(TARGETS ${target} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+	endif()
 endmacro()
 
 macro(INSTALL_LIB target)
-	install(TARGETS ${target} LIBRARY DESTINATION "${LRCX_RUNTIME_DIR}")
+	if (NOT WIN32)
+		install(TARGETS ${target} LIBRARY DESTINATION "${LRCX_RUNTIME_DIR}")
+	endif()
 endmacro()
 
 macro(INSTALL_FILES destination)
-	install(FILES ${ARGN} DESTINATION ${destination})
+	if (NOT WIN32)
+		install(FILES ${ARGN} DESTINATION ${destination})
+	endif()
 endmacro()
 
 macro(TRANSLATE_TS_FILES output out_dir)
@@ -67,4 +73,26 @@ macro(TRANSLATE_TS_FILES output out_dir)
 	endforeach()
 
 	set(${output} ${qm_files})
+endmacro()
+
+macro(COPY_QT_LIBS target_dir)
+	if (MSVC)
+		string(TOUPPER LOCATION_${CMAKE_BUILD_TYPE} _loc_type)
+
+		add_custom_target(copy_qt ALL)
+		foreach(lib ${ARGN})
+			get_target_property(_location ${lib} ${_loc_type})
+			add_custom_command(TARGET copy_qt
+					COMMAND ${CMAKE_COMMAND} -E copy ${_location} ${target_dir}
+					)
+		endforeach()
+	endif()
+endmacro()
+
+macro(TARGET_ENABLE_VISUAL_STYLES target)
+	if (MSVC)
+		set_target_properties(${target}
+			PROPERTIES LINK_FLAGS "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\""
+			)
+	endif()
 endmacro()

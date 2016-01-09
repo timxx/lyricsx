@@ -1,5 +1,12 @@
-add_executable(lyricsx
+if (WIN32)
+	set(_TYPE WIN32)
+	set(_WINMAINLIB Qt5::WinMain)
+	set(_RC_FILE lyricsx.rc)
+endif()
+
+add_executable(lyricsx ${_TYPE}
 	icons.qrc
+	${_RC_FILE}
 	application.cpp
 	application.h
 	lrceditor.cpp
@@ -34,6 +41,9 @@ target_link_libraries(lyricsx
 	player
 	Qt5::Core
 	Qt5::Widgets
+	${_WINMAINLIB}
 	)
+	
+target_enable_visual_styles(lyricsx)
 
 install_bin(lyricsx)

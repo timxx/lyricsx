@@ -16,6 +16,7 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QDebug>
+#include <functional>
 
 static QString _makeTimeTag(qint64 ms)
 {

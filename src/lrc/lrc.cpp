@@ -57,12 +57,12 @@ void LRC::clear()
 	m_tags.clear();
 }
 
-int LRC::count() const
+size_t LRC::count() const
 {
 	return m_lyrics.size();
 }
 
-int LRC::attrCount() const
+size_t LRC::attrCount() const
 {
 	return m_tags.size();
 }
