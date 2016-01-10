@@ -12,6 +12,8 @@
 #include <player/player.h>
 
 #include <QtTest/QtTest>
+#include <QtCore/QTimer>
+#include <QtCore/QEventLoop>
 
 class test_Player : public QObject
 {
@@ -25,6 +27,11 @@ void test_Player::testMetaData()
 	std::unique_ptr<Player> player = PlayerFactory::create("media");
 
 	player->open(QFINDTESTDATA("blank.mp3"));
+
+	QEventLoop loop;
+	// wait one second, since metaData is async
+	QTimer::singleShot(1000, &loop, SLOT(quit()));
+	loop.exec();
 
 	QCOMPARE(player->metaData(Player::Title).toString(), QString("blank"));
 	QVERIFY(player->metaData(Player::Artist).toStringList().contains(QString("lyricsx")));
