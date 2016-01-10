@@ -4,5 +4,13 @@
         <file>icons/remove-mark.png</file>
         <file>icons/select-music.png</file>
         <file>icons/apply-music-info.png</file>
+        <file>icons/media-pause.png</file>
+        <file>icons/media-start.png</file>
+
+        <file alias="icons/16x16/lyricsx.png">../../data/desktop/icons/hicolor/16x16/apps/lyricsx.png</file>
+        <file alias="icons/32x32/lyricsx.png">../../data/desktop/icons/hicolor/32x32/apps/lyricsx.png</file>
+        <file alias="icons/48x48/lyricsx.png">../../data/desktop/icons/hicolor/48x48/apps/lyricsx.png</file>
+        <file alias="icons/64x64/lyricsx.png">../../data/desktop/icons/hicolor/64x64/apps/lyricsx.png</file>
+        <file alias="icons/128x128/lyricsx.png">../../data/desktop/icons/hicolor/128x128/apps/lyricsx.png</file>
     </qresource>
 </RCC>

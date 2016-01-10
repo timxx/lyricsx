@@ -22,7 +22,7 @@ Application::Application(int &argc, char **argv)
 	: QApplication(argc, argv)
 {
 	setApplicationName("lrcx");
-	setWindowIcon(QIcon::fromTheme(QLatin1String("lyricsx")));
+	setWindowIcon(QIcon::fromTheme(QLatin1String("lyricsx"), QIcon(":/icons/32x32/lyricsx")));
 
 	QString translation_dirs[] =
 	{

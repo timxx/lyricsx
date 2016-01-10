@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>About LyricsX</string>
   </property>
-  <property name="windowIcon">
-   <iconset theme="lyricsx">
-    <normaloff>.</normaloff>.</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">

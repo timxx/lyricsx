@@ -38,6 +38,7 @@ public:
 
 private:
 	void updateTitle();
+	void updatePlayPauseIcon();
 
 private Q_SLOTS:
 	void onBtnOpen_Clicked();

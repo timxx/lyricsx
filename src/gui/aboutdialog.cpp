@@ -20,7 +20,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	QIcon icon = QIcon::fromTheme("lyricsx");
+	QIcon icon = QIcon::fromTheme("lyricsx", QIcon(":/icons/128x128/lyricsx"));
 	m_ui->appIcon->setPixmap(icon.pixmap(QSize(128, 128)));
 
 	m_ui->tb_LyricsX->setOpenExternalLinks(true);

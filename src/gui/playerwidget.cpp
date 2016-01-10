@@ -42,6 +42,8 @@ PlayerWidget::PlayerWidget(QWidget *parent)
 
 	QVariant var = xApp->settings(Application::AS_LrcEditor);
 	m_ui->le_Editor->setText(var.isValid() ? var.toString() : i18n::appName());
+
+	updatePlayPauseIcon();
 }
 
 PlayerWidget::~PlayerWidget()
@@ -84,6 +86,21 @@ void PlayerWidget::updateTitle()
 	else
 		strTitle += " - " + m_player->metaData(Player::Title).toString();
 	setWindowTitle(strTitle);
+}
+
+void PlayerWidget::updatePlayPauseIcon()
+{
+	Player::State state = Player::Paused;
+	if (m_player)
+		state = m_player->state();
+
+	QIcon icon;
+	if (state == Player::Playing)
+		icon = QIcon::fromTheme("media-playback-pause", QIcon(":/icons/media-pause"));
+	else
+		icon = QIcon::fromTheme("media-playback-start", QIcon(":/icons/media-start"));
+
+	m_ui->btn_PlayPause->setIcon(icon);
 }
 
 void PlayerWidget::onBtnOpen_Clicked()
@@ -147,11 +164,7 @@ void PlayerWidget::onSliderDuration_Changed()
 
 void PlayerWidget::onPlayerStateChanged(Player::State state)
 {
-	QIcon icon = QIcon::fromTheme(state == Player::Playing ?
-									  "media-playback-pause" :
-									  "media-playback-start"
-				);
-	m_ui->btn_PlayPause->setIcon(icon);
+	updatePlayPauseIcon();
 }
 
 void PlayerWidget::onPlayerDurationChanged(qint64 duration)
