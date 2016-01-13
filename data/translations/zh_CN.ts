@@ -9,7 +9,7 @@
         <translation>关于LyricsX</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+10"/>
         <source>LyricsX</source>
         <translation></translation>
     </message>
@@ -279,9 +279,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/gui/main.cpp" line="+32"/>
         <source>The file you open doesn&apos;t exists.</source>
-        <translation>您打开的文件不存在。</translation>
+        <translation type="vanished">您打开的文件不存在。</translation>
     </message>
 </context>
 <context>
@@ -328,6 +327,11 @@
         <location line="+5"/>
         <source>Save File</source>
         <translation>保存文件</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The file you open doesn&apos;t exists.</source>
+        <translation>您打开的文件不存在。</translation>
     </message>
 </context>
 </TS>

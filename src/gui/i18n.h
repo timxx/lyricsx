@@ -25,6 +25,8 @@ namespace lrcxns
 
 		QString openFileTitle();
 		QString saveFileTitle();
+
+		QString fileNotExists();
 	}
 }
 

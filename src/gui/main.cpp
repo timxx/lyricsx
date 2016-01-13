@@ -10,6 +10,7 @@
 
 #include "application.h"
 #include "mainwindow.h"
+#include "i18n.h"
 
 #include <QMessageBox>
 #include <QFileInfo>
@@ -29,7 +30,7 @@ int main(int argc, char **argv)
 		{
 			QMessageBox::information(&window,
 									 window.windowTitle(),
-									 QObject::tr("The file you open doesn't exists."));
+									 i18n::fileNotExists());
 		}
 		else
 		{

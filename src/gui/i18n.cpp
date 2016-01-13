@@ -52,5 +52,10 @@ namespace lrcxns
 		{
 			return tr("Save File");
 		}
+
+		QString fileNotExists()
+		{
+			return tr("The file you open doesn't exists.");
+		}
 	}
 }
