@@ -40,9 +40,16 @@ Application::Application(int &argc, char **argv)
 	}
 
 	// Qt translations
+	QString qt_translation_dirs[] =
+	{
+		applicationDirPath() + "/translations",
+		QLibraryInfo::location(QLibraryInfo::TranslationsPath),
+	};
+
+	for (const QString &dir : qt_translation_dirs)
 	{
 		QTranslator *translator = new QTranslator;
-		if(translator->load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		if(translator->load(QLocale::system(), "qt", "_", dir))
 			installTranslator(translator);
 		else
 			delete translator;
