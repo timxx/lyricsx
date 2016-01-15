@@ -43,6 +43,7 @@ Application::Application(int &argc, char **argv)
 	QString qt_translation_dirs[] =
 	{
 		applicationDirPath() + "/translations",
+		QStringLiteral(LRCX_TRANSLAIONS_DIR),
 		QLibraryInfo::location(QLibraryInfo::TranslationsPath),
 	};
 
