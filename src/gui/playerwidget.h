@@ -48,6 +48,7 @@ private Q_SLOTS:
 	void onPlayerStateChanged(Player::State state);
 	void onPlayerDurationChanged(qint64 duration);
 	void onPlayerPositionChanged(qint64 pos);
+        void onPlayerSeekableChanged(bool state);
 	void onPlayerMetadataChanged(Player::MetaData key, const QVariant &value);
 
 private:

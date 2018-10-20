@@ -124,7 +124,8 @@ void PlayerWidget::onBtnOpen_Clicked()
 	updateTitle();
 
 	m_ui->btn_PlayPause->setEnabled(true);
-	m_ui->slider_Duration->setEnabled(m_player->isSeekable());
+	// m_ui->slider_Duration->setEnabled(m_player->isSeekable());
+        connect(m_player.get(), SIGNAL(seekableChanged(bool)), this, SLOT(onPlayerSeekableChanged(bool)));
 	m_ui->slider_Duration->setMaximum(m_player->duration());
 	m_ui->slider_Duration->setValue(m_player->position());
 
@@ -182,6 +183,11 @@ void PlayerWidget::onPlayerPositionChanged(qint64 pos)
 	m_ui->slider_Duration->blockSignals(true);
 	m_ui->slider_Duration->setValue(pos);
 	m_ui->slider_Duration->blockSignals(false);
+}
+
+void PlayerWidget::onPlayerSeekableChanged(bool state)
+{
+        m_ui->slider_Duration->setEnabled(state);
 }
 
 void PlayerWidget::onPlayerMetadataChanged(Player::MetaData key, const QVariant &value)
