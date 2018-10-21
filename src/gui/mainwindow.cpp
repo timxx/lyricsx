@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -16,6 +16,7 @@
 #include "encodingchooser.h"
 #include "aboutdialog.h"
 #include "i18n.h"
+#include "stylehelper.h"
 
 #include <QToolBar>
 #include <QDesktopWidget>
@@ -65,6 +66,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 	m_ui->action_Reload_With_Encoding->setEnabled(false);
 
+	resize(StyleHelper::dpiScaled(QSize(540, 520)));
+
 	loadSettings();
 }
 
@@ -94,6 +97,9 @@ void MainWindow::createToolBars()
 	editToolbar->addAction(m_ui->action_Delete_mark);
 	editToolbar->addSeparator();
 	editToolbar->addAction(m_ui->action_Add_music_info);
+
+	fileToolbar->setIconSize(StyleHelper::dpiScaled(fileToolbar->iconSize()));
+	editToolbar->setIconSize(StyleHelper::dpiScaled(editToolbar->iconSize()));
 }
 
 void MainWindow::loadSettings()

@@ -34,6 +34,8 @@ add_executable(lyricsx ${_TYPE}
 	aboutdialog.ui
 	i18n.cpp
 	i18n.h
+	stylehelper.cpp
+	stylehelper.h
 	)
 
 target_link_libraries(lyricsx

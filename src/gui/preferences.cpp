@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -12,6 +12,7 @@
 #include "ui_preferences.h"
 #include "application.h"
 #include "i18n.h"
+#include "stylehelper.h"
 
 #include <QFontDatabase>
 
@@ -23,6 +24,7 @@ Preferences::Preferences(QWidget *parent)
 	, m_fontDatabase(new QFontDatabase)
 {
 	m_ui->setupUi(this);
+	resize(StyleHelper::dpiScaled(QSize(370, 220)));
 
 	connect(m_ui->cb_Font, SIGNAL(currentFontChanged(const QFont &)), this, SLOT(onFontFamilyChanged(const QFont&)));
 	connect(this, SIGNAL(accepted()), this, SLOT(saveSettings()));

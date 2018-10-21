@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -17,6 +17,12 @@
 
 int main(int argc, char **argv)
 {
+	// Do not use the auto scale, it's too ugly LoL
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+	QApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+#endif
+	QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
 	Application app(argc, argv);
 
 	MainWindow window;

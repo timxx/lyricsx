@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -10,6 +10,7 @@
 
 #include "encodingchooser.h"
 #include "ui_encodingchooser.h"
+#include "stylehelper.h"
 
 #include <QTextCodec>
 #include <QTextStream>
@@ -21,6 +22,7 @@ EncodingChooser::EncodingChooser(QWidget *parent)
 	, m_ui(new Ui::EncodingChooser)
 {
 	m_ui->setupUi(this);
+	resize(StyleHelper::dpiScaled(QSize(452, 270)));
 
 	initEncodings();
 

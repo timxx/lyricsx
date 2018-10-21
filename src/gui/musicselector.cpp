@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -12,6 +12,7 @@
 #include "ui_musicselector.h"
 #include "application.h"
 #include "i18n.h"
+#include "stylehelper.h"
 
 #include <player/player.h>
 #include <player/playerfactory.h>
@@ -38,6 +39,8 @@ MusicSelector::MusicSelector(QWidget *parent)
 	connect(m_ui->btn_Open, SIGNAL(clicked(bool)), this, SLOT(onBtn_Open_Clicked(bool)));
 
 	m_ui->rb_Local->click();
+
+	resize(StyleHelper::dpiScaled(QSize(534, 104)));
 }
 
 MusicSelector::~MusicSelector()
