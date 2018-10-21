@@ -124,8 +124,7 @@ void PlayerWidget::onBtnOpen_Clicked()
 	updateTitle();
 
 	m_ui->btn_PlayPause->setEnabled(true);
-	// m_ui->slider_Duration->setEnabled(m_player->isSeekable());
-        connect(m_player.get(), SIGNAL(seekableChanged(bool)), this, SLOT(onPlayerSeekableChanged(bool)));
+	m_ui->slider_Duration->setEnabled(m_player->isSeekable());
 	m_ui->slider_Duration->setMaximum(m_player->duration());
 	m_ui->slider_Duration->setValue(m_player->position());
 
@@ -136,6 +135,7 @@ void PlayerWidget::onBtnOpen_Clicked()
 	connect(m_player.get(), SIGNAL(durationChanged(qint64)), this, SLOT(onPlayerDurationChanged(qint64)));
 	connect(m_player.get(), SIGNAL(positionChanged(qint64)), this, SLOT(onPlayerPositionChanged(qint64)));
 	connect(m_player.get(), SIGNAL(metaDataChanged(Player::MetaData,QVariant)), this, SLOT(onPlayerMetadataChanged(Player::MetaData,QVariant)));
+	connect(m_player.get(), SIGNAL(seekableChanged(bool)), this, SLOT(onPlayerSeekableChanged(bool)));
 }
 
 void PlayerWidget::onBtnPlayPause_Clicked()
@@ -187,7 +187,7 @@ void PlayerWidget::onPlayerPositionChanged(qint64 pos)
 
 void PlayerWidget::onPlayerSeekableChanged(bool state)
 {
-        m_ui->slider_Duration->setEnabled(state);
+	m_ui->slider_Duration->setEnabled(state);
 }
 
 void PlayerWidget::onPlayerMetadataChanged(Player::MetaData key, const QVariant &value)
