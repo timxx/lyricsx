@@ -36,7 +36,7 @@ public:
 		return m_album;
 	}
 
-	inline qlonglong duratoin() const
+	inline qlonglong duration() const
 	{
 		return m_duration;
 	}
@@ -274,7 +274,7 @@ qint64 MprisPlayer::duration() const
 	if (!m_player)
 		return 0;
 
-	return m_player->duratoin() / 1000;
+	return m_player->duration() / 1000;
 }
 
 qint64 MprisPlayer::position() const
