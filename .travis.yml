@@ -20,7 +20,5 @@ before_install:
 script:
   - mkdir Build_${BUILD_TYPE}
   - cd Build_${BUILD_TYPE}
-  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DLRCX_ENABLE_TESTS=1
+  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DLRCX_ENABLE_TESTS=0
   - make -j
-  - bin/test_player
-  - bin/test_reader

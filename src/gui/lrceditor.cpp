@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2016 - 2018 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -16,6 +16,7 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QDebug>
+#include <QFile>
 #include <functional>
 
 static QString _makeTimeTag(qint64 ms)
@@ -228,14 +229,13 @@ void LrcEditor::mergeLyrics()
 	}
 
 	// sort by time
-	std::sort(sortedLines.begin(), sortedLines.end(), [](Line &rhl, Line &rhs)
+	for (auto &line : sortedLines)
+		std::sort(line.times.begin(), line.times.end(), std::greater<int>());
+
+	std::sort(sortedLines.begin(), sortedLines.end(), [](const Line &lhs, const Line &rhs)
 	{
-		Q_ASSERT(rhl.times.size() > 0 && rhs.times.size() > 0);
-
-		std::sort(rhl.times.begin(), rhl.times.end(), std::greater<int>());
-		std::sort(rhs.times.begin(), rhs.times.end(), std::greater<int>());
-
-		return rhl.times.back() < rhs.times.back();
+		Q_ASSERT(lhs.times.size() > 0 && rhs.times.size() > 0);
+		return lhs.times.back() < rhs.times.back();
 	});
 
 	for (const auto &line : sortedLines)
