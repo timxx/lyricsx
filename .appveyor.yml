@@ -1,0 +1,29 @@
+environment:
+  matrix:
+    - BUILD_TYPE: Release
+      PLATFORM: x86
+      QT: 5.11.1\msvc2015
+
+    - BUILD_TYPE: Release
+      PLATFORM: x64
+      QT: 5.11.1\msvc2015_64
+
+    - BUILD_TYPE: Debug
+      PLATFORM: x86
+      QT: 5.11.1\msvc2015
+
+    - BUILD_TYPE: Debug
+      PLATFORM: x64
+      QT: 5.11.1\msvc2015_64
+
+init:
+  - set PATH=C:\Qt\%QT%\bin;%PATH%
+
+clone_folder: c:\dev\lyricsx
+
+build_script:
+  - md build
+  - cd build
+  - if [%PLATFORM%]==[x86] cmake .. -G "Visual Studio 14 2015" -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+  - if [%PLATFORM%]==[x64] cmake .. -G "Visual Studio 14 2015 Win64" -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+  - cmake --build . --config %BUILD_TYPE%
