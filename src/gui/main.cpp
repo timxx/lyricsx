@@ -18,6 +18,7 @@
 int main(int argc, char **argv)
 {
 	// Do not use the auto scale, it's too ugly LoL
+	qputenv("QT_SCALE_FACTOR", "");
 #if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
 	QApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 #endif
