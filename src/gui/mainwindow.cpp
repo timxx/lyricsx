@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 - 2018 Weitian Leung
+ * Copyright (c) 2019 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -217,9 +217,14 @@ void MainWindow::onAction_Saveas()
 	const QString strFilter = i18n::filterLRCFiles();
 	QFileInfo fileInfo(xApp->settings(Application::AS_LrcLastDir).toString());
 
+	QString initDir = fileInfo.path();
+	QString title = m_playerWidget->getTitle();
+	if (!title.isEmpty())
+		initDir += QDir::separator() + title + QLatin1String(".lrc");
+
 	QString strFile = QFileDialog::getSaveFileName(this,
 												   i18n::saveFileTitle(),
-												   fileInfo.path(),
+												   initDir,
 												   strFilter);
 
 	if (!strFile.isEmpty())
