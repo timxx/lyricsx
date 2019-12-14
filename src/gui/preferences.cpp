@@ -97,7 +97,7 @@ void Preferences::updateFontSize(const QString &family, const QString &style)
 	if (pointSizes.empty())
 		pointSizes = QFontDatabase::standardSizes();
 
-	qSort(pointSizes);
+	std::sort(pointSizes.begin(), pointSizes.end());
 
 	m_ui->cb_Size->setCurrentIndex(-1);
 	m_ui->cb_Size->clear();

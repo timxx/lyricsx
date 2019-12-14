@@ -22,6 +22,7 @@
 #include <QDesktopWidget>
 #include <QDebug>
 #include <QFileDialog>
+#include <QScreen>
 
 LRCX_BEGIN_NS
 
@@ -138,7 +139,12 @@ void MainWindow::saveSettings()
 
 void MainWindow::moveToCenter()
 {
-	const QRect &rc = QApplication::desktop()->screenGeometry();
+	QScreen* screen = QApplication::primaryScreen();
+	if (!screen)
+		return;
+
+	const QRect &rc =screen->availableGeometry();
+
 	int x = (rc.width() - width()) / 2;
 	int y = (rc.height() - height()) / 2;
 
