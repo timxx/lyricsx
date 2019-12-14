@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 - 2018 Weitian Leung
+ * Copyright (c) 2019 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -44,7 +44,7 @@ void AboutDialog::initLyricsX()
 			"<center>" + lrcxns::AboutDialog::tr("free, open source, cross-platform software for editing lyrics") + "</center>"
 			"<center><a href=https://github.com/timxx/lyricsx>" + lrcxns::AboutDialog::tr("Visit project host") + "</a></center>"
 			"<br/>"
-			"<center>Copyright © 2018 Weitian Leung</center>"
+			"<center>Copyright © 2019 Weitian Leung</center>"
 			;
 
 	m_ui->tb_LyricsX->setHtml(strDesc);
