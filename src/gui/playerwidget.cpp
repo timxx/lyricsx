@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2019 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -23,8 +23,8 @@ static QString _ms2mmss(qint64 ms)
 	int mm = ss / 60;
 	ss = ss % 60;
 
-	QString str;
-	str.sprintf("%02d:%02d", mm, ss);
+	QString str = QString("%1:%2").arg(mm, 2, 10, QChar('0'))
+		.arg(ss, 2, 10, QChar('0'));
 	return str;
 }
 

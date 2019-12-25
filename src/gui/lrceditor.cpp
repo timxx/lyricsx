@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 - 2018 Weitian Leung
+ * Copyright (c) 2019 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -25,8 +25,9 @@ static QString _makeTimeTag(qint64 ms)
 	int ss = ms / 1000 % 60;
 	int xx = (ms % 1000) / 10;
 
-	QString str;
-	str.sprintf("[%02d:%02d.%02d]", mm, ss, xx);
+	QString str = QString("[%1:%2.%3]").arg(mm, 2, 10, QChar('0'))
+		.arg(ss, 2, 10, QChar('0'))
+		.arg(xx, 2, 10, QChar('0'));
 	return str;
 }
 
