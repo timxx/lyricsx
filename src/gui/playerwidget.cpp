@@ -13,6 +13,7 @@
 #include "musicselector.h"
 #include "application.h"
 #include "i18n.h"
+#include "stylehelper.h"
 
 static QString _ms2mmss(qint64 ms)
 {
@@ -42,6 +43,14 @@ PlayerWidget::PlayerWidget(QWidget *parent)
 
 	QVariant var = xApp->settings(Application::AS_LrcEditor);
 	m_ui->le_Editor->setText(var.isValid() ? var.toString() : i18n::appName());
+
+	auto _scaleIconSize = [](QAbstractButton *button)
+	{
+		button->setIconSize(StyleHelper::dpiScaled(button->iconSize()));
+	};
+
+	_scaleIconSize(m_ui->btn_Open);
+	_scaleIconSize(m_ui->btn_PlayPause);
 
 	updatePlayPauseIcon();
 }
