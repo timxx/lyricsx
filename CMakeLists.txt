@@ -6,7 +6,7 @@ project(lyricsx)
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 1)
-set(VERSION_PATCH 0)
+set(VERSION_PATCH 1)
 set(version "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 set(LRCX_RUNTIME_DIR "${CMAKE_INSTALL_PREFIX}/lib/lyricsx")
