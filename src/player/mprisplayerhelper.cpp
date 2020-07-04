@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Weitian Leung
+ * Copyright (c) 2020 Weitian Leung
  *
  * This file is part of LyricsX.
  *
@@ -59,7 +59,11 @@ static QString _absDesktopFile(const QString &desktop)
 
 		if (!env.isEmpty())
 		{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+			s_dirs = env.split(':', Qt::SkipEmptyParts);
+#else
 			s_dirs = env.split(':', QString::SkipEmptyParts);
+#endif
 		}
 
 		// do we need user home directory ?
